@@ -1,6 +1,6 @@
 .empty
-data
-results
 __pycache__
 metrics_th.py
 eval.py
+640_512
+*.npy
