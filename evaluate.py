@@ -1,6 +1,8 @@
 import os
 from utils import * 
-from metrics_np import * 
+from metrics_depth import single_view_depth_evaluation
+from metrics_pcd import single_view_pc_evaluation
+from metrics_mesh import mesh_evaluation
 
 def evaluate_pc():
     est_pc_path = 'data/640_512/single_view_pc_est'
@@ -52,16 +54,15 @@ def evaluate_depth():
         results = []
         for i in dep_est_list:
             est, _ = np.asarray(read_pfm(os.path.join(dep_est_path, i)))
-
             if np.isnan(est).sum() > 0:
                 print ('est')
                 print (np.isnan(est).sum())
             gt, _ = read_pfm(os.path.join(depth_gt_path, i))
-
             if np.isnan(gt).sum() > 0:
                 continue
-                # print (i)
-                # print ('gt')
+                print (i)
+                print ('gt')
+
             result = single_view_depth_evaluation(est[:, :, 0], gt[:, :, 0])
             
             results.append(result)
